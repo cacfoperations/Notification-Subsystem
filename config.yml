@@ -1,0 +1,80 @@
+
+# Copyright (c) 2018-2021 Qualcomm Technologies, Inc.
+
+# All rights reserved.
+
+# Redistribution and use in source and binary forms, with or without modification, are permitted (subject to the
+# limitations in the disclaimer below) provided that the following conditions are met:
+
+# * Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+# disclaimer.
+# * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+# disclaimer in the documentation and/or other materials provided with the distribution.
+# * Neither the name of Qualcomm Technologies, Inc. nor the names of its contributors may be used to endorse or promote
+# products derived from this software without specific prior written permission.
+# * The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
+# If you use this software in a product, an acknowledgment is required by displaying the trademark/log as per the details
+# provided here: https://www.qualcomm.com/documents/dirbs-logo-and-brand-guidelines
+# * Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+# * This notice may not be removed or altered from any source distribution.
+
+# NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY
+# THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+# COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+
+# DNS global configurations
+global:
+
+  # chunk size from single big file that needs to be inserted into DataFrame. Any value greater than 1M must be set
+  # carefully as it may leads to memory leakage
+  df_big_chunksize: 100000
+
+  # chunk size from one of the ten partial files that needs to be inserted into DataFrame. Any value greater than 1M
+  # must be set carefully as it may leads to memory leakage
+  df_small_chunksize: 10000
+
+  # Number to determine how many objects are created in a single query.
+  db_batch_size: 1000
+
+  # Batch Size of SMS delivered to SMS-Gateway (Jasmine) in sendbatch-api
+  sms_batch_size: 1000
+
+  # Sender number of DNS. It can be both string or a number, depending upon SMS-Gateways' configurations
+  dns_sender_no: ["DIRBS-DNS", "9595", "5555", "4343"]
+
+  # Sender Email-ID of DNS.
+  dns_sender_email: [ "devops@3gca.org"]
+
+  # modes to initiate SMS campaign
+  campaign_modes: ["DB", "File"]
+
+  # URL of SMS-Gateway e.g Kannel or Jasmine
+  jasmine_url: "http://192.168.100.43:8080/secure/sendbatch"
+  Jasmine_Authorization: "Basic Zm9vOmJhcg=="
+
+  # File extensions allowed for bulk uploads
+  allowed_extensions: [ 'csv', 'txt' ]
+
+  # Names of Mobile Operators
+  mnos: ["operator01", "operator02", "operator03", "operator04",]
+
+  # Names of Subsystems
+  subsystems: ["DRS", "DVS", "DPS", "LSDS", "GDDS", "D-VIEW", "Ops-DashBoard"]
+
+  validation_regex:
+    msisdn: '^923[0-9]{9}$'
+    imei: '^[A-F0-9]{14,16}$'
+    tac: '^[0-9]{8}$'       #   '^\d{8}$'
+    mno: '^.{1,50}$'
+    imsi: '^\d{15}$'
+    serial_no: '^.{1,100}$'
+    mac: '^([0-9A-F]{2,4}[.:-]){3,7}([0-9A-F]{2,4})$'
+    rat: '^(2G|3G|4G|5G)[,]?(2G|3G|4G|5G)?[,]?(2G|3G|4G|5G)?[,]?(2G|3G|4G|5G)?$'
+    date: '^((19|20)\d{2})\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$'
+    email: '^[a-zA-Z0-9\x2D\x2E\x5F]+@[a-zA-Z0-9_]+?\.[a-zA-Z]{2,3}$'
