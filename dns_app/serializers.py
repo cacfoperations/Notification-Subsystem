@@ -45,7 +45,7 @@ class SmsSerializer(serializers.ModelSerializer):
 
     sms_to = serializers.CharField(validators=[cv.chk_msisdn])
     sms_from = serializers.CharField(validators=[cv.chk_shortcode])
-    operator = serializers.CharField(validators=[cv.chk_operators])
+    operator = serializers.CharField(required=False, validators=[cv.chk_operators])
     subsystem = serializers.CharField(validators=[cv.chk_subsystems])
     imei = serializers.CharField(required=False, validators=[cv.check_imei])
 

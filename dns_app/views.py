@@ -70,7 +70,7 @@ class SmsView(viewsets.ModelViewSet):
             "sms_from": request.data.get('sms_from').strip(),
             "imei": request.data.get('imei'),
             "subsystem": request.data.get('subsystem').strip(),
-            "operator": request.data.get('operator').strip(),
+            "operator": request.data.get('operator'),
             "filename": request.data.get('filename'),
             "sms_content": request.data.get('sms_content').strip()
         }
@@ -79,6 +79,7 @@ class SmsView(viewsets.ModelViewSet):
 
             if not data['filename']: data['filename'] = ""
             if not data['imei']: data['imei'] = ""
+            if not data['operator']: data['operator'] = ""
 
             # sending SMS by calling jasmine API via celery using default queue
             jasmine_sms.apply_async(args=[data['sms_to'], data['sms_content'], data['sms_from']])

@@ -46,7 +46,7 @@ global:
   sms_batch_size: 1000
 
   # Sender number of DNS. It can be both string or a number, depending upon SMS-Gateways' configurations
-  dns_sender_no: ["DIRBS-DNS", "9595", "5555", "4343"]
+  dns_sender_no: ["DIRBS-DNS", "9595", "5555", "4343", "03029847788"]
 
   # Sender Email-ID of DNS.
   dns_sender_email: [ "devops@3gca.org"]
