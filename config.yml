@@ -46,7 +46,7 @@ global:
   sms_batch_size: 1000
 
   # Sender number of DNS. It can be both string or a number, depending upon SMS-Gateways' configurations
-  dns_sender_no: ["DIRBS-DNS", "9595", "5555", "4343", "03029847788"]
+  dns_sender_no: ["DIRBS-DNS", "9595", "5555", "4343", "03029847788", "00597295", "99597295", "8484", "8787", "8383"]
 
   # Sender Email-ID of DNS.
   dns_sender_email: [ "devops@3gca.org"]
@@ -55,14 +55,15 @@ global:
   campaign_modes: ["DB", "File"]
 
   # URL of SMS-Gateway e.g Kannel or Jasmine
-  jasmine_url: "http://192.168.100.43:8080/secure/sendbatch"
-  Jasmine_Authorization: "Basic Zm9vOmJhcg=="
+  jasmine_url: "http://192.168.100.40:8080/secure/sendbatch"
+#  Jasmine_Authorization: "Basic Zm9vOmJhcg=="
+  Jasmine_Authorization: "Basic em9uZzoxMjM="
 
   # File extensions allowed for bulk uploads
   allowed_extensions: [ 'csv', 'txt' ]
 
   # Names of Mobile Operators
-  mnos: ["operator01", "operator02", "operator03", "operator04",]
+  mnos: ["operator01", "operator02", "operator03", "operator04", "zong", "ufone"]
 
   # Names of Subsystems
   subsystems: ["DRS", "DVS", "DPS", "LSDS", "GDDS", "D-VIEW", "Ops-DashBoard"]
