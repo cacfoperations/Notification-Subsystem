@@ -53,11 +53,11 @@ def celery_email(subject, content, sender, recipient):
 
 @shared_task()
 def jasmine_sms(msisdn, content, sender_no):
-    url = conf['jasmine_url']
+    url = conf['jasmine_single_sms_url']
     sms_body = {
         "to": msisdn,
         "from": sender_no,
-        "coding": 8,
+        # "coding": 0,
         "content": content
     }
     headers = {'content-type': 'application/json', 'Authorization': conf['Jasmine_Authorization']}
@@ -211,7 +211,7 @@ def bulk_sms_file(file, content, operator, subsystem, sender_no, sms_rate):
     try:
         # read the file into DataFrame
         df_csv = pd.read_csv(file, usecols=range(5), dtype={"imei": str, "imsi": str, "msisdn": str, "block_date": str,
-                                                        "reasons": str}, chunksize=conf['df_big_chunksize'])
+                                                            "reasons": str}, chunksize=conf['df_big_chunksize'])
     except Exception as e:
         if e:
             error = {"Error": "File content is not Correct"}
@@ -396,7 +396,7 @@ def write_email_db(email_to, email_from, subsystem, email_subject, email_content
 
 def send_sms_batch(msisdn_list, sms_content=""):
 
-    url = conf['jasmine_url']
+    url = conf['jasmine_bulk_sms_url']
 
     sms_batch = {
             "messages": [
@@ -406,7 +406,7 @@ def send_sms_batch(msisdn_list, sms_content=""):
         }
       ]
     }
-    headers = {'content-type': 'application/json', 'Authorization': 'Basic Zm9vOmJhcg=='}
+    headers = {'content-type': 'application/json', 'Authorization': conf['Jasmine_Authorization']}
     response = requests.post(url=url, data=json.dumps(sms_batch), headers=headers)
     if response:
         if response.status_code == 200:

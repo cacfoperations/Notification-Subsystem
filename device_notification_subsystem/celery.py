@@ -35,7 +35,7 @@ from celery import Celery
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'device_notification_subsystem.settings')
 
-app = Celery('device_notification_subsystem')
+app = Celery('notification_subsystem')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 

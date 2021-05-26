@@ -54,8 +54,9 @@ global:
   # modes to initiate SMS campaign
   campaign_modes: ["DB", "File"]
 
-  # URL of SMS-Gateway e.g Kannel or Jasmine
-  jasmine_url: "http://192.168.100.40:8080/secure/sendbatch"
+  # URLs of SMS-Gateway e.g Kannel or Jasmine
+  jasmine_single_sms_url: "http://192.168.100.40:8080/secure/send"
+  jasmine_bulk_sms_url: "http://192.168.100.40:8080/secure/sendbatch"
 #  Jasmine_Authorization: "Basic Zm9vOmJhcg=="
   Jasmine_Authorization: "Basic em9uZzoxMjM="
 
