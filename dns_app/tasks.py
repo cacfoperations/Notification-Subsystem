@@ -52,7 +52,7 @@ def celery_email(subject, content, sender, recipient):
 
 
 @shared_task()
-def jasmine_sms(msisdn, content, sender_no):
+def jasmine_sms(msisdn, content, sender_no, operator):
     url = conf['jasmine_single_sms_url']
     sms_body = {
         "to": msisdn,
@@ -60,7 +60,8 @@ def jasmine_sms(msisdn, content, sender_no):
         # "coding": 0,
         "content": content
     }
-    headers = {'content-type': 'application/json', 'Authorization': conf['Jasmine_Authorization']}
+    auth = jasmin_auth(operator)
+    headers = {'content-type': 'application/json', 'Authorization': auth}
     response = requests.post(url=url, data=json.dumps(sms_body), headers=headers)
     if response:
         if response.status_code == 200:
@@ -113,7 +114,7 @@ def bulk_sms_db(content, operator, subsystem, sender_no, sms_rate):
 
         print("processing chunk-", chunk + 1)
         # res = send_sms_batch(msisdn_list, content)
-        send_sms_batch(msisdn_list, content)
+        send_sms_batch(msisdn_list, operator, content)
 
     print("DB insertion started ")
 
@@ -329,7 +330,7 @@ def process_sms_file(file_msisdn, file_all, content, operator, subsystem, file_n
             msisdn_list = df_f[start:].stack().to_list()
 
         print("processing chunk-", chunk+1)
-        send_sms_batch(msisdn_list, content)
+        send_sms_batch(msisdn_list, operator, content)
         time.sleep(1)
 
     print("DB insertion started ")
@@ -394,7 +395,7 @@ def write_email_db(email_to, email_from, subsystem, email_subject, email_content
     email_content_obj.save()
 
 
-def send_sms_batch(msisdn_list, sms_content=""):
+def send_sms_batch(msisdn_list, operator, sms_content=""):
 
     url = conf['jasmine_bulk_sms_url']
 
@@ -406,7 +407,10 @@ def send_sms_batch(msisdn_list, sms_content=""):
         }
       ]
     }
-    headers = {'content-type': 'application/json', 'Authorization': conf['Jasmine_Authorization']}
+
+    # auth = conf['jasmine_authorization']
+    auth = jasmin_auth(operator)
+    headers = {'content-type': 'application/json', 'Authorization': auth}
     response = requests.post(url=url, data=json.dumps(sms_batch), headers=headers)
     if response:
         if response.status_code == 200:
@@ -414,6 +418,19 @@ def send_sms_batch(msisdn_list, sms_content=""):
             print(f'SMS delivered to {result["data"]["messageCount"]} MSISDNs. Batch-ID is {result["data"]["batchId"]}')
         else:
             print(f'SMS batch delivery is failed')
+
+
+def jasmin_auth(operator):
+    if operator == "zong":
+        return conf['operator1_auth']
+    elif operator == "ufone":
+        return conf['operator2_auth']
+    elif operator == "jazz":
+        return conf['operator3_auth']
+    elif operator == "telenor":
+        return conf['operator4_auth']
+    else:
+        return conf['operator1_auth']
 
 
 @shared_task

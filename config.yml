@@ -57,8 +57,12 @@ global:
   # URLs of SMS-Gateway e.g Kannel or Jasmine
   jasmine_single_sms_url: "http://192.168.100.40:8080/secure/send"
   jasmine_bulk_sms_url: "http://192.168.100.40:8080/secure/sendbatch"
-#  Jasmine_Authorization: "Basic Zm9vOmJhcg=="
-  Jasmine_Authorization: "Basic em9uZzoxMjM="
+
+  #Jasmine_Authorization: "Basic Zm9vOmJhcg=="
+  operator1_auth: "Basic em9uZzoxMjM="  # for zong
+  operator2_auth: "Basic dWZvbmU6MTIz"  # for ufone
+  operator3_auth: ""
+  operator4_auth: ""
 
   # File extensions allowed for bulk uploads
   allowed_extensions: [ 'csv', 'txt' ]

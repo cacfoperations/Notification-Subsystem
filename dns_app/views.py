@@ -82,7 +82,7 @@ class SmsView(viewsets.ModelViewSet):
             if not data['operator']: data['operator'] = ""
 
             # sending SMS by calling jasmine API via celery using default queue
-            jasmine_sms.apply_async(args=[data['sms_to'], data['sms_content'], data['sms_from']])
+            jasmine_sms.apply_async(args=[data['sms_to'], data['sms_content'], data['sms_from'], data['operator']])
 
             # writing into database
             sms_obj = Sms.objects.create(imei=data['imei'].strip(), sms_to=data['sms_to'], sms_from=data['sms_from'],
